@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  app:
+    image: wishlistapiimg
+    ports:
+      - "7070:2024"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.h2   # Use the Dockerfile for the H2 database
+    ports:
+      - "1521:1521"
+      - "81:81"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
